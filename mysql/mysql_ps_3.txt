@@ -1,0 +1,318 @@
+=================================================
+              PROBLEM STATEMENT 3
+=================================================
+
+mysql> create table tourist (
+    -> tcode int not null primary key,
+    -> name varchar(50) not null,
+    -> age int not null,
+    -> agency varchar(50) not null,
+    -> package_amt bigint not null,
+    -> travel_date date default '1900-01-01'
+    -> );
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> desc tourist;
++-------------+-------------+------+-----+------------+-------+
+| Field       | Type        | Null | Key | Default    | Extra |
++-------------+-------------+------+-----+------------+-------+
+| tcode       | int(11)     | NO   | PRI | NULL       |       |
+| name        | varchar(50) | NO   |     | NULL       |       |
+| age         | int(11)     | NO   |     | NULL       |       |
+| agency      | varchar(50) | NO   |     | NULL       |       |
+| package_amt | bigint(20)  | NO   |     | NULL       |       |
+| travel_date | date        | YES  |     | 1900-01-01 |       |
++-------------+-------------+------+-----+------------+-------+
+6 rows in set (0.03 sec)
+
+mysql>  insert into tourist(tcode, name, age, agency, package_amt, travel_date) VALUES (101, 'Raghavendra', 26, '1', 12000, '2010-01-23');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>  insert into tourist(tcode, name, age, agency, package_amt, travel_date) VALUES (102, 'Shazia', 32, '2', 10000, '2010-03-24');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>  insert into tourist(tcode, name, age, agency, package_amt, travel_date) VALUES (103, 'Hardeep', 30, '1', 8000, '2009-04-21');
+Query OK, 1 row affected (0.05 sec)
+
+mysql>  insert into tourist(tcode, name, age, agency, package_amt, travel_date) VALUES (105, 'Lisa', 23, '1', 9000, '2009-07-18');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>  insert into tourist(tcode, name, age, agency, package_amt, travel_date) VALUES (108, 'Diana', 21, '2', 15000, '2010-03-11');
+Query OK, 1 row affected (0.06 sec)
+
+mysql>  insert into tourist(tcode, name, age, agency, package_amt, travel_date) VALUES (109, 'Madhu', 23, '2', 15000, '2010-03-17');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>  insert into tourist(tcode, name, age, agency, package_amt, travel_date) VALUES (110, 'Srinivas', 30, '1', 2000, '2009-03-16');
+Query OK, 1 row affected (0.05 sec)
+
+mysql>  insert into tourist(tcode, name, age, agency, package_amt, travel_date) VALUES (111, 'Medha', 29, '2', 16560, '2009-06-14');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>  insert into tourist(tcode, name, age, agency, package_amt, travel_date) VALUES (112, 'Uma', 33, '1', 20000, '2010-12-15');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>  insert into tourist(tcode, name, age, agency, package_amt, travel_date) VALUES (113, 'Kavita', 34, '1', 21000, '2019-11-15');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> update tourist set agency='Cross Roads' where agency='1';
+Query OK, 6 rows affected (0.08 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> update tourist set agency='Go Places' where agency='2';
+Query OK, 4 rows affected (0.05 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from tourist;
++-------+-------------+-----+-------------+-------------+-------------+
+| tcode | name        | age | agency      | package_amt | travel_date |
++-------+-------------+-----+-------------+-------------+-------------+
+|   101 | Raghavendra |  26 | Cross Roads |       12000 | 2010-01-23  |
+|   102 | Shazia      |  32 | Go Places   |       10000 | 2010-03-24  |
+|   103 | Hardeep     |  30 | Cross Roads |        8000 | 2009-04-21  |
+|   105 | Lisa        |  23 | Cross Roads |        9000 | 2009-07-18  |
+|   108 | Diana       |  21 | Go Places   |       15000 | 2010-03-11  |
+|   109 | Madhu       |  23 | Go Places   |       15000 | 2010-03-17  |
+|   110 | Srinivas    |  30 | Cross Roads |        2000 | 2009-03-16  |
+|   111 | Medha       |  29 | Go Places   |       16560 | 2009-06-14  |
+|   112 | Uma         |  33 | Cross Roads |       20000 | 2010-12-15  |
+|   113 | Kavita      |  34 | Cross Roads |       21000 | 2019-11-15  |
++-------+-------------+-----+-------------+-------------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> create table places (
+    -> pcode int not null primary key,
+    -> name varchar(50) not null,
+    -> t_code int not null,
+    -> foreign key(t_code) references tourist(tcode) ON UPDATE CASCADE ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> insert into places(pcode, name, t_code) values (11, 'Agra', 101);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into places(pcode, name, t_code) values (12, 'Jodhpur', 103);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into places(pcode, name, t_code) values (13, 'Waynad', 105);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into places(pcode, name, t_code) values (14, 'Alapuzha', 105);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into places(pcode, name, t_code) values (15, 'Srinagar', 113);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into places(pcode, name, t_code) values (16, 'Ajmer', 111);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into places(pcode, name, t_code) values (17, 'Kanyakumari', 112);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into places(pcode, name, t_code) values (18, 'Jharkhand', 110);
+Query OK, 1 row affected (0.03 sec)
+
+
+a)
+
+
+mysql> select agency, sum(package_amt) as package_sum from tourist group by agency;
++-------------+-------------+
+| agency      | package_sum |
++-------------+-------------+
+| Cross Roads |       72000 |
+| Go Places   |       56560 |
++-------------+-------------+
+2 rows in set (0.05 sec)
+
+
+
+b)
+
+
+mysql> create table temp_tour as
+    -> select tcode, name, package_amt from tourist where agency='Go Places' AND package_amt > 10000;
+Query OK, 3 rows affected (0.39 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from temp_tour;
++-------+-------+-------------+
+| tcode | name  | package_amt |
++-------+-------+-------------+
+|   108 | Diana |       15000 |
+|   109 | Madhu |       15000 |
+|   111 | Medha |       16560 |
++-------+-------+-------------+
+3 rows in set (0.00 sec)
+
+
+c)
+
+mysql> select tourist.name, places.name from tourist right join places on tourist.tcode = places.t_code;
++-------------+-------------+
+| name        | name        |
++-------------+-------------+
+| Raghavendra | Agra        |
+| Hardeep     | Jodhpur     |
+| Lisa        | Waynad      |
+| Lisa        | Alapuzha    |
+| Kavita      | Srinagar    |
+| Medha       | Ajmer       |
+| Uma         | Kanyakumari |
+| Srinivas    | Jharkhand   |
++-------------+-------------+
+8 rows in set (0.00 sec)
+
+
+
+d)
+
+mysql> select count(name) from places where name like 'A%';
++-------------+
+| count(name) |
++-------------+
+|           3 |
++-------------+
+1 row in set (0.03 sec)
+
+
+e)
+
+
+mysql> create view v_tourists as
+    -> select tcode, name, age, package_amt, travel_date from tourist where agency='Cross Roads';
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select * from v_tourists;
++-------+-------------+-----+-------------+-------------+
+| tcode | name        | age | package_amt | travel_date |
++-------+-------------+-----+-------------+-------------+
+|   101 | Raghavendra |  26 |       12000 | 2010-01-23  |
+|   103 | Hardeep     |  30 |        8000 | 2009-04-21  |
+|   105 | Lisa        |  23 |        9000 | 2009-07-18  |
+|   110 | Srinivas    |  30 |        2000 | 2009-03-16  |
+|   112 | Uma         |  33 |       20000 | 2010-12-15  |
+|   113 | Kavita      |  34 |       21000 | 2019-11-15  |
++-------+-------------+-----+-------------+-------------+
+6 rows in set (0.02 sec)
+
+
+
+f)
+
+
+mysql> update v_tourists
+    -> set package_amt = package_amt + (package_amt * (10/100));
+Query OK, 6 rows affected (0.06 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> select * from v_tourists;
++-------+-------------+-----+-------------+-------------+
+| tcode | name        | age | package_amt | travel_date |
++-------+-------------+-----+-------------+-------------+
+|   101 | Raghavendra |  26 |       13200 | 2010-01-23  |
+|   103 | Hardeep     |  30 |        8800 | 2009-04-21  |
+|   105 | Lisa        |  23 |        9900 | 2009-07-18  |
+|   110 | Srinivas    |  30 |        2200 | 2009-03-16  |
+|   112 | Uma         |  33 |       22000 | 2010-12-15  |
+|   113 | Kavita      |  34 |       23100 | 2019-11-15  |
++-------+-------------+-----+-------------+-------------+
+6 rows in set (0.00 sec)
+
+
+
+g)
+
+mysql> select * from tourist where age in (21, 23, 26);
++-------+-------------+-----+-------------+-------------+-------------+
+| tcode | name        | age | agency      | package_amt | travel_date |
++-------+-------------+-----+-------------+-------------+-------------+
+|   101 | Raghavendra |  26 | Cross Roads |       13200 | 2010-01-23  |
+|   105 | Lisa        |  23 | Cross Roads |        9900 | 2009-07-18  |
+|   108 | Diana       |  21 | Go Places   |       15000 | 2010-03-11  |
+|   109 | Madhu       |  23 | Go Places   |       15000 | 2010-03-17  |
++-------+-------------+-----+-------------+-------------+-------------+
+4 rows in set (0.02 sec)
+
+
+h)
+
+
+mysql> select tcode, (package_amt - package_amt*(10/100)) as projected_discount from tourist;
++-------+--------------------+
+| tcode | projected_discount |
++-------+--------------------+
+|   101 |         11880.0000 |
+|   102 |          9000.0000 |
+|   103 |          7920.0000 |
+|   105 |          8910.0000 |
+|   108 |         13500.0000 |
+|   109 |         13500.0000 |
+|   110 |          1980.0000 |
+|   111 |         14904.0000 |
+|   112 |         19800.0000 |
+|   113 |         20790.0000 |
++-------+--------------------+
+10 rows in set (0.00 sec)
+
+
+i)
+
+mysql> select tourist.name, tourist.package_amt, places.name as destination from tourist left join places on tourist.tcode = places.t_code where tourist.name in ('Hardeep', 'Kavita', 'Medha');
++---------+-------------+-------------+
+| name    | package_amt | destination |
++---------+-------------+-------------+
+| Hardeep |        8800 | Jodhpur     |
+| Medha   |       16560 | Ajmer       |
+| Kavita  |       23100 | Srinagar    |
++---------+-------------+-------------+
+3 rows in set (0.00 sec)
+
+
+
+j)
+
+mysql> select name, 'took package at' , agency from tourist;
++-------------+-----------------+-------------+
+| name        | took package at | agency      |
++-------------+-----------------+-------------+
+| Raghavendra | took package at | Cross Roads |
+| Shazia      | took package at | Go Places   |
+| Hardeep     | took package at | Cross Roads |
+| Lisa        | took package at | Cross Roads |
+| Diana       | took package at | Go Places   |
+| Madhu       | took package at | Go Places   |
+| Srinivas    | took package at | Cross Roads |
+| Medha       | took package at | Go Places   |
+| Uma         | took package at | Cross Roads |
+| Kavita      | took package at | Cross Roads |
++-------------+-----------------+-------------+
+10 rows in set (0.00 sec)
+
+
+
+k)
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2018-06-14 |
++------------+
+1 row in set (0.03 sec)
+
+
+l)
+
+
+mysql> select tourist.name from places left join tourist on tourist.tcode = places.t_code group by t_code having count(t_code) > 1;
++------+
+| name |
++------+
+| Lisa |
++------+
+1 row in set (0.00 sec)
+
+
+
+

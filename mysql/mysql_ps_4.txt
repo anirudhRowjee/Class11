@@ -1,0 +1,293 @@
+mysql> create table teacher(
+    -> no int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    -> name VARCHAR(50) NOT NULL,
+    -> age INT NOT NULL,
+    -> dept VARCHAR(50) NOT NULL default 'General Department',
+    -> DateOfAdmn date NOT NULL,
+    -> salary BIGINT NOT NULL,
+    -> gender VARCHAR(5) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> desc teacher;
++------------+-------------+------+-----+--------------------+----------------+
+| Field      | Type        | Null | Key | Default            | Extra          |
++------------+-------------+------+-----+--------------------+----------------+
+| no         | int(11)     | NO   | PRI | NULL               | auto_increment |
+| name       | varchar(50) | NO   |     | NULL               |                |
+| age        | int(11)     | NO   |     | NULL               |                |
+| dept       | varchar(50) | NO   |     | General Department |                |
+| DateOfAdmn | date        | NO   |     | NULL               |                |
+| salary     | bigint(20)  | NO   |     | NULL               |                |
+| gender     | varchar(5)  | NO   |     | NULL               |                |
++------------+-------------+------+-----+--------------------+----------------+
+7 rows in set (0.02 sec)
+
+
+mysql> create table examiner(
+    -> teacher_code INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    -> center VARCHAR(50) NOT NULL,
+    -> date_i date NOT NULL,
+    -> foreign key (teacher_code) references teacher(no) on update cascade on delete cascade
+    -> );
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> desc examiner;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| teacher_code | int(11)     | NO   | PRI | NULL    | auto_increment |
+| center       | varchar(50) | NO   |     | NULL    |                |
+| date_i       | date        | NO   |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+INSERTION FOR TABLE TEACHER
+
+
+
+mysql> insert into teacher(name, age, dept, DateOfAdmn, salary, gender) values ('Sangeeta', 35, 'History',  '1999-07-01', 40000, 'F');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into teacher(name, age, dept, DateOfAdmn, salary, gender) values ('Rakesh', 42, 'Math',  '1997-04-05', 25000, 'M');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into teacher(name, age, dept, DateOfAdmn, salary, gender) values ('Shyam', 50, 'History',  '1998-06-27', 30000, 'M');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into teacher(name, age, dept, DateOfAdmn, salary, gender) values ('Shivam', 44, 'Computer',  '1997-02-25', 21000, 'M');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into teacher(name, age, dept, DateOfAdmn, salary, gender) values ('Shalaka', 33, 'Math',  '1997-07-31', 20000, 'F');
+Query OK, 1 row affected (0.05 sec);
+
+mysql> insert into examiner(center, date_i) values ('Bangalore', '2010-12-11'), ('Chennai', '2010-12-12'), ('Mumbai', '2010-12-13'), ('Bangalore', '2010-12-13');
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+
+mysql> select * from teacher;
++----+----------+-----+----------+------------+--------+--------+
+| no | name     | age | dept     | DateOfAdmn | salary | gender |
++----+----------+-----+----------+------------+--------+--------+
+|  1 | Jugal    |  34 | Computer | 1997-01-10 |  12000 | M      |
+|  2 | Sharmila |  31 | History  | 1998-03-24 |  20000 | F      |
+|  3 | Sandeep  |  32 | Math     | 1996-12-12 |  30000 | M      |
+|  4 | Sangeeta |  35 | History  | 1999-07-01 |  40000 | F      |
+|  5 | Rakesh   |  42 | Math     | 1997-04-05 |  25000 | M      |
+|  6 | Shyam    |  50 | History  | 1998-06-27 |  30000 | M      |
+|  7 | Shivam   |  44 | Computer | 1997-02-25 |  21000 | M      |
+|  8 | Shalaka  |  33 | Math     | 1997-07-31 |  20000 | F      |
++----+----------+-----+----------+------------+--------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select * from examiner;
++--------------+-----------+------------+
+| teacher_code | center    | date_i     |
++--------------+-----------+------------+
+|            1 | Bangalore | 2010-12-11 |
+|            2 | Chennai   | 2010-12-12 |
+|            3 | Mumbai    | 2010-12-13 |
+|            4 | Bangalore | 2010-12-13 |
++--------------+-----------+------------+
+4 rows in set (0.00 sec)
+
+
+
+A)
+
+
+mysql> select * from teacher where dept='History' order by DateOfAdmn desc;
++----+----------+-----+---------+------------+--------+--------+
+| no | name     | age | dept    | DateOfAdmn | salary | gender |
++----+----------+-----+---------+------------+--------+--------+
+|  4 | Sangeeta |  35 | History | 1999-07-01 |  40000 | F      |
+|  6 | Shyam    |  50 | History | 1998-06-27 |  30000 | M      |
+|  2 | Sharmila |  31 | History | 1998-03-24 |  20000 | F      |
++----+----------+-----+---------+------------+--------+--------+
+3 rows in set (0.05 sec)
+
+
+B)
+
+mysql> select * from teacher where gender='F' and dept='Math';
++----+---------+-----+------+------------+--------+--------+
+| no | name    | age | dept | DateOfAdmn | salary | gender |
++----+---------+-----+------+------------+--------+--------+
+|  8 | Shalaka |  33 | Math | 1997-07-31 |  20000 | F      |
++----+---------+-----+------+------------+--------+--------+
+1 row in set (0.03 sec)
+
+
+C)
+
+
+mysql> select avg(salary) as avg_salary from teacher where gender='M';
++------------+
+| avg_salary |
++------------+
+| 23600.0000 |
++------------+
+1 row in set (0.05 sec)
+
+
+
+D)
+
+mysql> update teacher set salary = (salary + (salary * (10/100))) where gender='F' and year(DateOfAdmn) = 1997;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from teacher;
++----+----------+-----+----------+------------+--------+--------+
+| no | name     | age | dept     | DateOfAdmn | salary | gender |
++----+----------+-----+----------+------------+--------+--------+
+|  1 | Jugal    |  34 | Computer | 1997-01-10 |  12000 | M      |
+|  2 | Sharmila |  31 | History  | 1998-03-24 |  20000 | F      |
+|  3 | Sandeep  |  32 | Math     | 1996-12-12 |  30000 | M      |
+|  4 | Sangeeta |  35 | History  | 1999-07-01 |  40000 | F      |
+|  5 | Rakesh   |  42 | Math     | 1997-04-05 |  25000 | M      |
+|  6 | Shyam    |  50 | History  | 1998-06-27 |  30000 | M      |
+|  7 | Shivam   |  44 | Computer | 1997-02-25 |  21000 | M      |
+|  8 | Shalaka  |  33 | Math     | 1997-07-31 |  22000 | F      |
++----+----------+-----+----------+------------+--------+--------+
+8 rows in set (0.00 sec)
+
+
+
+E)
+
+
+mysql> create view v_teacher as
+    -> select * from teacher where dept='Math';
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> select * from v_teacher;
++----+---------+-----+------+------------+--------+--------+
+| no | name    | age | dept | DateOfAdmn | salary | gender |
++----+---------+-----+------+------------+--------+--------+
+|  3 | Sandeep |  32 | Math | 1996-12-12 |  30000 | M      |
+|  5 | Rakesh  |  42 | Math | 1997-04-05 |  25000 | M      |
+|  8 | Shalaka |  33 | Math | 1997-07-31 |  22000 | F      |
++----+---------+-----+------+------------+--------+--------+
+3 rows in set (0.02 sec)
+
+
+F)
+
+
+mysql> select teacher.name, examiner.center from examiner left join teacher on teacher.no = examiner.teacher_code where examiner.center='Bangalore';
++----------+-----------+
+| name     | center    |
++----------+-----------+
+| Jugal    | Bangalore |
+| Sangeeta | Bangalore |
++----------+-----------+
+2 rows in set (0.01 sec)
+
+
+G)
+
+mysql> select * from teacher where dept='History' and age between 30 and 45;
++----+----------+-----+---------+------------+--------+--------+
+| no | name     | age | dept    | DateOfAdmn | salary | gender |
++----+----------+-----+---------+------------+--------+--------+
+|  2 | Sharmila |  31 | History | 1998-03-24 |  20000 | F      |
+|  4 | Sangeeta |  35 | History | 1999-07-01 |  40000 | F      |
++----+----------+-----+---------+------------+--------+--------+
+2 rows in set (0.02 sec)
+
+
+H)
+
+mysql> select teacher.name, examiner.center from examiner left join teacher on teacher.no = examiner.teacher_code where examiner.center='Bangalore' and teacher.dept='Computer';
++-------+-----------+
+| name  | center    |
++-------+-----------+
+| Jugal | Bangalore |
++-------+-----------+
+1 row in set (0.00 sec)
+
+I)
+
+mysql> select * from teacher where month(DateOfAdmn) = 3 OR month(DateOfAdmn) = 4;
++----+----------+-----+---------+------------+--------+--------+
+| no | name     | age | dept    | DateOfAdmn | salary | gender |
++----+----------+-----+---------+------------+--------+--------+
+|  2 | Sharmila |  31 | History | 1998-03-24 |  20000 | F      |
+|  5 | Rakesh   |  42 | Math    | 1997-04-05 |  25000 | M      |
++----+----------+-----+---------+------------+--------+--------+
+2 rows in set (0.00 sec)
+
+
+
+
+OUTPUT QUERIES 
+
+
+
+A)
+
+mysql> select sum(salary), dept from teacher group by dept;
++-------------+----------+
+| sum(salary) | dept     |
++-------------+----------+
+|       33000 | Computer |
+|       90000 | History  |
+|       77000 | Math     |
++-------------+----------+
+3 rows in set (0.03 sec)
+
+
+
+B)
+
+mysql> select avg(salary), dept from teacher group by dept;
++-------------+----------+
+| avg(salary) | dept     |
++-------------+----------+
+|  16500.0000 | Computer |
+|  30000.0000 | History  |
+|  25666.6667 | Math     |
++-------------+----------+
+3 rows in set (0.02 sec)
+
+
+C)
+
+mysql> select name from teacher where name like 's%';
++----------+
+| name     |
++----------+
+| Sharmila |
+| Sandeep  |
+| Sangeeta |
+| Shyam    |
+| Shivam   |
+| Shalaka  |
++----------+
+6 rows in set (0.00 sec)
+
+
+D)
+
+mysql> select distinct dept from teacher;
++----------+
+| dept     |
++----------+
+| Computer |
+| History  |
+| Math     |
++----------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+

@@ -1,0 +1,268 @@
+QUERY TO CREATE TABLE
+create table Movies(
+	Movie_ID varchar(10) NOT NULL PRIMARY KEY,
+	MovieName varchar(50) NOT NULL,
+	Type varchar(50) default 'No Genre',
+	Cast varchar(50) NOT NULL,
+	Rating Varchar(5) NOT NULL,
+	Qty INT,
+	Price float
+);
+Query OK, 0 rows affected (0.31 sec)
+
+QUERIES TO INSERT DATA AS PER P-SET
+mysql> insert into Movies(Movie_ID, MovieName, Type, Cast, Rating, Qty, Price) values ('M002', 'Doctor Do Little', 'Comedy', 'Eddie Murphy', 'B', 3, 40.5);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into Movies(Movie_ID, MovieName, Type, Cast, Rating, Qty, Price) values ('M003', 'Coyote Ugly', 'Drama', 'Piper Perabo', 'C', 4, 35.5);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Movies(Movie_ID, MovieName, Type, Cast, Rating, Qty, Price) values ('M004', 'Rush Hour', 'Comedy', 'Jackie Chan', 'A', 5, 12.9);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into Movies(Movie_ID, MovieName, Type, Cast, Rating, Qty, Price) values ('M005', 'Bourne Identity', 'Action', 'Matt Damon', 'B', 7, 22.8);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into Movies(Movie_ID, MovieName, Type, Cast, Rating, Qty, Price) values ('M006', 'Casino Royale', 'Action', 'Daniel Craig', 'B', 3, 90);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into Movies(Movie_ID, MovieName, Type, Cast, Rating, Qty, Price) values ('M007', 'Runaway Bride', 'Comedy', 'Julia Roberts', 'C', 1, 19);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Movies(Movie_ID, MovieName, Type, Cast, Rating, Qty, Price) values ('M008', 'Little Miss Sunshine', 'Family', 'Abigail Breslin', 'A', 11, 18.67);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into Movies(Movie_ID, MovieName, Type, Cast, Rating, Qty, Price) values ('M009', 'Scream', 'Thriller', 'Drew Barrymore', 'C', 1, 33.88);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Movies(Movie_ID, MovieName, Type, Cast, Rating, Qty, Price) values ('M010', 'Pursuit of Happiness', 'Drama', 'Will Smith', 'A', 10, 23.99);
+Query OK, 1 row affected (0.03 sec)
+
+QUERY TO SHOW TABLE
+ 
+mysql> select * from Movies;
++----------+----------------------+----------+-----------------+--------+------+-------+
+| Movie_ID | MovieName            | Type     | Cast            | Rating | Qty  | Price |
++----------+----------------------+----------+-----------------+--------+------+-------+
+| M001     | Gone With the Wind   | Drama    | Clark Gable     | A      |   10 |  39.6 |
+| M002     | Doctor Do Little     | Comedy   | Eddie Murphy    | B      |    3 |  40.5 |
+| M003     | Coyote Ugly          | Drama    | Piper Perabo    | C      |    4 |  35.5 |
+| M004     | Rush Hour            | Comedy   | Jackie Chan     | A      |    5 |  12.9 |
+| M005     | Bourne Identity      | Action   | Matt Damon      | B      |    7 |  22.8 |
+| M006     | Casino Royale        | Action   | Daniel Craig    | B      |    3 |    90 |
+| M007     | Runaway Bride        | Comedy   | Julia Roberts   | C      |    1 |    19 |
+| M008     | Little Miss Sunshine | Family   | Abigail Breslin | A      |   11 | 18.67 |
+| M009     | Scream               | Thriller | Drew Barrymore  | C      |    1 | 33.88 |
+| M010     | Pursuit of Happiness | Drama    | Will Smith      | A      |   10 | 23.99 |
++----------+----------------------+----------+-----------------+--------+------+-------+
+10 rows in set (0.02 sec)
+
+
+
+
+
+L)
+
+mysql> select * from Movies where Cast='Drew Barrymore';
++----------+-----------+----------+----------------+--------+------+-------+
+| Movie_ID | MovieName | Type     | Cast           | Rating | Qty  | Price |
++----------+-----------+----------+----------------+--------+------+-------+
+| M009     | Scream    | Thriller | Drew Barrymore | C      |    1 | 33.88 |
++----------+-----------+----------+----------------+--------+------+-------+
+1 row in set (0.05 sec)
+
+M)
+
+mysql> select * from Movies where Price BETWEEN 30 AND 40;
++----------+--------------------+----------+----------------+--------+------+-------+
+| Movie_ID | MovieName          | Type     | Cast           | Rating | Qty  | Price |
++----------+--------------------+----------+----------------+--------+------+-------+
+| M001     | Gone With the Wind | Drama    | Clark Gable    | A      |   10 |  39.6 |
+| M003     | Coyote Ugly        | Drama    | Piper Perabo   | C      |    4 |  35.5 |
+| M009     | Scream             | Thriller | Drew Barrymore | C      |    1 | 33.88 |
++----------+--------------------+----------+----------------+--------+------+-------+
+3 rows in set (0.01 sec)
+
+N)
+
+mysql> select count(distinct type) from movies;
++----------------------+
+| count(distinct type) |
++----------------------+
+|                    5 |
++----------------------+
+1 row in set (0.01 sec)
+
+
+
+O)
+
+mysql> select Type from Movies group by Type;
++----------+
+| Type     |
++----------+
+| Action   |
+| Comedy   |
+| Drama    |
+| Family   |
+| Thriller |
++----------+
+5 rows in set (0.00 sec)
+
+
+P)
+
+mysql> select * from movies where MovieName not like 'D%' && MovieName not like 'C%';
++----------+----------------------+----------+-----------------+--------+------+-------+
+| Movie_ID | MovieName            | Type     | Cast            | Rating | Qty  | Price |
++----------+----------------------+----------+-----------------+--------+------+-------+
+| M001     | Gone With the Wind   | Drama    | Clark Gable     | A      |   10 |  39.6 |
+| M004     | Rush Hour            | Comedy   | Jackie Chan     | A      |    5 |  12.9 |
+| M005     | Bourne Identity      | Action   | Matt Damon      | B      |    7 |  22.8 |
+| M007     | Runaway Bride        | Comedy   | Julia Roberts   | C      |    1 |    19 |
+| M008     | Little Miss Sunshine | Family   | Abigail Breslin | A      |   11 | 18.67 |
+| M009     | Scream               | Thriller | Drew Barrymore  | C      |    1 | 33.88 |
+| M010     | Pursuit of Happiness | Drama    | Will Smith      | A      |   10 | 23.99 |
++----------+----------------------+----------+-----------------+--------+------+-------+
+7 rows in set (0.00 sec)
+
+Q)
+
+mysql> select * from movies where rating='A' and Qty <= 10;
++----------+----------------------+--------+-------------+--------+------+-------+
+| Movie_ID | MovieName            | Type   | Cast        | Rating | Qty  | Price |
++----------+----------------------+--------+-------------+--------+------+-------+
+| M001     | Gone With the Wind   | Drama  | Clark Gable | A      |   10 |  39.6 |
+| M004     | Rush Hour            | Comedy | Jackie Chan | A      |    5 |  12.9 |
+| M010     | Pursuit of Happiness | Drama  | Will Smith  | A      |   10 | 23.99 |
++----------+----------------------+--------+-------------+--------+------+-------+
+3 rows in set (0.00 sec)
+
+
+R)
+
+mysql> select type, avg(price) from movies group by type;
++----------+--------------------+
+| type     | avg(price)         |
++----------+--------------------+
+| Action   |  56.39999961853027 |
+| Comedy   | 24.133333206176758 |
+| Drama    |  33.02999941507975 |
+| Family   | 18.670000076293945 |
+| Thriller | 33.880001068115234 |
++----------+--------------------+
+5 rows in set (0.00 sec)
+
+
+S) 
+
+mysql> select * from movies where Cast like 'J%';
++----------+---------------+--------+---------------+--------+------+-------+
+| Movie_ID | MovieName     | Type   | Cast          | Rating | Qty  | Price |
++----------+---------------+--------+---------------+--------+------+-------+
+| M004     | Rush Hour     | Comedy | Jackie Chan   | A      |    5 |  12.9 |
+| M007     | Runaway Bride | Comedy | Julia Roberts | C      |    1 |    19 |
++----------+---------------+--------+---------------+--------+------+-------+
+2 rows in set (0.00 sec)
+
+
+T)
+
+mysql> select type, min(price) from movies where price < 30 group by type;
++--------+------------+
+| type   | min(price) |
++--------+------------+
+| Action |       22.8 |
+| Comedy |       12.9 |
+| Drama  |      23.99 |
+| Family |      18.67 |
++--------+------------+
+4 rows in set (0.00 sec)
+
+U) 
+
+mysql> insert into Movies(Movie_ID, MovieName, Cast, Rating, Qty, Price) values ('M011', 'The Bucket List', 'Morgan Freeman', 'A', 5, 30);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from movies;
++----------+----------------------+----------+-----------------+--------+------+-------+
+| Movie_ID | MovieName            | Type     | Cast            | Rating | Qty  | Price |
++----------+----------------------+----------+-----------------+--------+------+-------+
+| M001     | Gone With the Wind   | Drama    | Clark Gable     | A      |   10 |  39.6 |
+| M002     | Doctor Do Little     | Comedy   | Eddie Murphy    | B      |    3 |  40.5 |
+| M003     | Coyote Ugly          | Drama    | Piper Perabo    | C      |    4 |  35.5 |
+| M004     | Rush Hour            | Comedy   | Jackie Chan     | A      |    5 |  12.9 |
+| M005     | Bourne Identity      | Action   | Matt Damon      | B      |    7 |  22.8 |
+| M006     | Casino Royale        | Action   | Daniel Craig    | B      |    3 |    90 |
+| M007     | Runaway Bride        | Comedy   | Julia Roberts   | C      |    1 |    19 |
+| M008     | Little Miss Sunshine | Family   | Abigail Breslin | A      |   11 | 18.67 |
+| M009     | Scream               | Thriller | Drew Barrymore  | C      |    1 | 33.88 |
+| M010     | Pursuit of Happiness | Drama    | Will Smith      | A      |   10 | 23.99 |
+| M011     | The Bucket List      | No Genre | Morgan Freeman  | A      |    5 |    30 |
++----------+----------------------+----------+-----------------+--------+------+-------+
+11 rows in set (0.00 sec)
+
+
+
+V)
+
+mysql> update movies set Rating='B' where MovieName='Rush Hour';
+Query OK, 1 row affected (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from movies;
++----------+----------------------+----------+-----------------+--------+------+-------+
+| Movie_ID | MovieName            | Type     | Cast            | Rating | Qty  | Price |
++----------+----------------------+----------+-----------------+--------+------+-------+
+| M001     | Gone With the Wind   | Drama    | Clark Gable     | A      |   10 |  39.6 |
+| M002     | Doctor Do Little     | Comedy   | Eddie Murphy    | B      |    3 |  40.5 |
+| M003     | Coyote Ugly          | Drama    | Piper Perabo    | C      |    4 |  35.5 |
+| M004     | Rush Hour            | Comedy   | Jackie Chan     | B      |    5 |  12.9 |
+| M005     | Bourne Identity      | Action   | Matt Damon      | B      |    7 |  22.8 |
+| M006     | Casino Royale        | Action   | Daniel Craig    | B      |    3 |    90 |
+| M007     | Runaway Bride        | Comedy   | Julia Roberts   | C      |    1 |    19 |
+| M008     | Little Miss Sunshine | Family   | Abigail Breslin | A      |   11 | 18.67 |
+| M009     | Scream               | Thriller | Drew Barrymore  | C      |    1 | 33.88 |
+| M010     | Pursuit of Happiness | Drama    | Will Smith      | A      |   10 | 23.99 |
+| M011     | The Bucket List      | No Genre | Morgan Freeman  | A      |    5 |    30 |
++----------+----------------------+----------+-----------------+--------+------+-------+
+11 rows in set (0.00 sec)
+
+
+D)
+
+mysql> select * from movies where rating='A' and price < 30;
++----------+----------------------+--------+-----------------+--------+------+-------+
+| Movie_ID | MovieName            | Type   | Cast            | Rating | Qty  | Price |
++----------+----------------------+--------+-----------------+--------+------+-------+
+| M008     | Little Miss Sunshine | Family | Abigail Breslin | A      |   11 | 18.67 |
+| M010     | Pursuit of Happiness | Drama  | Will Smith      | A      |   10 | 23.99 |
++----------+----------------------+--------+-----------------+--------+------+-------+
+2 rows in set (0.00 sec)
+
+E)
+
+mysql> select Moviename, type from movies where Qty between 4 and 10;
++----------------------+----------+
+| Moviename            | type     |
++----------------------+----------+
+| Gone With the Wind   | Drama    |
+| Coyote Ugly          | Drama    |
+| Rush Hour            | Comedy   |
+| Bourne Identity      | Action   |
+| Pursuit of Happiness | Drama    |
+| The Bucket List      | No Genre |
++----------------------+----------+
+6 rows in set (0.02 sec)
+
+F) 
+
+mysql> Select moviename, rating from movies where moviename like '__r%';
++----------------------+--------+
+| moviename            | rating |
++----------------------+--------+
+| Scream               | C      |
+| Pursuit of Happiness | A      |
++----------------------+--------+
+2 rows in set (0.00 sec)
+

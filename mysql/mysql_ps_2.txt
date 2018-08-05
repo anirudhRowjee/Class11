@@ -1,0 +1,315 @@
+mysql> create table flight_details(
+    -> Flight_no varchar(10) NOT NULL PRIMARY KEY,
+    -> Starting_destination VARCHAR(50) NOT NULL,
+    -> Ending_destination VARCHAR(50) NOT NULL,
+    -> no_of_flights int NOT NULL,
+    -> No_of_stops INT NOT NULL
+    -> );
+Query OK, 0 rows affected (0.19 sec)
+
+
+mysql> desc flight_details;
++----------------------+-------------+------+-----+---------+-------+
+| Field                | Type        | Null | Key | Default | Extra |
++----------------------+-------------+------+-----+---------+-------+
+| Flight_no            | varchar(10) | NO   | PRI |         |       |
+| Starting_destination | varchar(50) | NO   |     |         |       |
+| Ending_destination   | varchar(50) | NO   |     |         |       |
+| no_of_flights        | int(11)     | NO   |     |         |       |
+| No_of_stops          | int(11)     | NO   |     |         |       |
++----------------------+-------------+------+-----+---------+-------+
+5 rows in set (0.08 sec)
+
+mysql> insert into flight_details(Flight_no, Starting_destination, Ending_destination, no_of_flights, No_of_stops) VALUES ('IC301', 'BOMBAY', 'DELHI', 8, 0);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO FLIGHT_DETAILS(FLIGHT_NO, STARTING_DESTINATION, ENDING_DESTINATION, NO_OF_FLIGHTS, NO_OF_STOPS) VALUES ('MC890', 'INDORE', 'BOMBAY', 1,0);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into flight_details(flight_no, starting_destination, ending_destination, no_of_flights, no_of_stops) values ('KF234', 'KANPUR', 'BANGALORE', 4, 0);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into flight_details(flight_no, starting_destination, ending_destination, no_of_flights, no_of_stops) values ('AM501', 'DELHI', 'BOMBAY', 4, 1);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into flight_details(flight_no, starting_destination, ending_destination, no_of_flights, no_of_stops) values ('MC499', 'BOMBAY', 'TRIVANDRUM', 4, 2);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into flight_details(flight_no, starting_destination, ending_destination, no_of_flights, no_of_stops) values ('AM812', 'TRIVANDRUM', 'DELHI', 2, 1);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into flight_details(flight_no, starting_destination, ending_destination, no_of_flights, no_of_stops) values ('IC678', 'DELHI', 'KOLKATA', 5, 2);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into flight_details(flight_no, starting_destination, ending_destination, no_of_flights, no_of_stops) values ('IC567', 'KOLKATA', 'BHUVANESHWAR', 1, 0);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into flight_details(flight_no, starting_destination, ending_destination, no_of_flights, no_of_stops) values ('IC799', 'CHENNAI', 'DELHI', 5, 0);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> SELECT * FROM FLIGHT_DETAILS;
++-----------+----------------------+--------------------+---------------+-------------+
+| Flight_no | Starting_destination | Ending_destination | no_of_flights | No_of_stops |
++-----------+----------------------+--------------------+---------------+-------------+
+| AM501     | DELHI                | BOMBAY             |             4 |           1 |
+| AM812     | TRIVANDRUM           | DELHI              |             2 |           1 |
+| IC301     | BOMBAY               | DELHI              |             8 |           0 |
+| IC567     | KOLKATA              | BHUVANESHWAR       |             1 |           0 |
+| IC678     | DELHI                | KOLKATA            |             5 |           2 |
+| IC789     | BANGALORE            | DELHI              |             2 |           1 |
+| IC799     | CHENNAI              | DELHI              |             5 |           0 |
+| KF234     | KANPUR               | BANGALORE          |             4 |           0 |
+| MC499     | BOMBAY               | TRIVANDRUM         |             4 |           2 |
+| MC890     | INDORE               | BOMBAY             |             1 |           0 |
++-----------+----------------------+--------------------+---------------+-------------+
+10 rows in set (0.02 sec)
+
+
+
+a)
+
+
+mysql> select * from flight_details where starting_destination = 'BOMBAY';
++-----------+----------------------+--------------------+---------------+-------------+
+| Flight_no | Starting_destination | Ending_destination | no_of_flights | No_of_stops |
++-----------+----------------------+--------------------+---------------+-------------+
+| IC301     | BOMBAY               | DELHI              |             8 |           0 |
+| MC499     | BOMBAY               | TRIVANDRUM         |             4 |           2 |
++-----------+----------------------+--------------------+---------------+-------------+
+2 rows in set (0.05 sec)
+
+
+b)
+
+mysql> alter table flight_details add airlines VARCHAR(50) NOT NULL;
+Query OK, 10 rows affected (0.25 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+c)
+
+mysql> update flight_details set airlines='INDIAN AIRLINES' where flight_no like 'IC%';
+Query OK, 5 rows affected (0.06 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> update flight_details set airlines='KINGFISHER ' where flight_no like 'KF%';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update flight_details set airlines='SAHARA' where flight_no like 'MC%';
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update flight_details set airlines='JET AIRWAYS' where flight_no like 'AM%';
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from flight_details;
++-----------+----------------------+--------------------+---------------+-------------+-----------------+
+| Flight_no | Starting_destination | Ending_destination | no_of_flights | No_of_stops | airlines        |
++-----------+----------------------+--------------------+---------------+-------------+-----------------+
+| AM501     | DELHI                | BOMBAY             |             4 |           1 | JET AIRWAYS     |
+| AM812     | TRIVANDRUM           | DELHI              |             2 |           1 | JET AIRWAYS     |
+| IC301     | BOMBAY               | DELHI              |             8 |           0 | INDIAN AIRLINES |
+| IC567     | KOLKATA              | BHUVANESHWAR       |             1 |           0 | INDIAN AIRLINES |
+| IC678     | DELHI                | KOLKATA            |             5 |           2 | INDIAN AIRLINES |
+| IC789     | BANGALORE            | DELHI              |             2 |           1 | INDIAN AIRLINES |
+| IC799     | CHENNAI              | DELHI              |             5 |           0 | INDIAN AIRLINES |
+| KF234     | KANPUR               | BANGALORE          |             4 |           0 | KINGFISHER      |
+| MC499     | BOMBAY               | TRIVANDRUM         |             4 |           2 | SAHARA          |
+| MC890     | INDORE               | BOMBAY             |             1 |           0 | SAHARA          |
++-----------+----------------------+--------------------+---------------+-------------+-----------------+
+10 rows in set (0.00 sec)
+
+
+d)
+
+
+mysql> alter table flight_details change starting_destination start_dest VARCHAR(50) NOT NULL;
+Query OK, 10 rows affected (0.20 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> alter table flight_details change ending_destination end_dest VARCHAR(50) NOT NULL;
+Query OK, 10 rows affected (0.16 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from flight_details;
++-----------+------------+--------------+---------------+-------------+-----------------+
+| Flight_no | start_dest | end_dest     | no_of_flights | No_of_stops | airlines        |
++-----------+------------+--------------+---------------+-------------+-----------------+
+| AM501     | DELHI      | BOMBAY       |             4 |           1 | JET AIRWAYS     |
+| AM812     | TRIVANDRUM | DELHI        |             2 |           1 | JET AIRWAYS     |
+| IC301     | BOMBAY     | DELHI        |             8 |           0 | INDIAN AIRLINES |
+| IC567     | KOLKATA    | BHUVANESHWAR |             1 |           0 | INDIAN AIRLINES |
+| IC678     | DELHI      | KOLKATA      |             5 |           2 | INDIAN AIRLINES |
+| IC789     | BANGALORE  | DELHI        |             2 |           1 | INDIAN AIRLINES |
+| IC799     | CHENNAI    | DELHI        |             5 |           0 | INDIAN AIRLINES |
+| KF234     | KANPUR     | BANGALORE    |             4 |           0 | KINGFISHER      |
+| MC499     | BOMBAY     | TRIVANDRUM   |             4 |           2 | SAHARA          |
+| MC890     | INDORE     | BOMBAY       |             1 |           0 | SAHARA          |
++-----------+------------+--------------+---------------+-------------+-----------------+
+10 rows in set (0.01 sec)
+
+
+e)
+
+airlines column already not null.
+
+
+f)
+
+mysql> select flight_no, start_dest, end_dest, no_of_flights + 2 as no_of_flights, no_of_stops, airlines from flight_details where flight_no like 'MC%';
++-----------+------------+------------+---------------+-------------+----------+
+| flight_no | start_dest | end_dest   | no_of_flights | no_of_stops | airlines |
++-----------+------------+------------+---------------+-------------+----------+
+| MC499     | BOMBAY     | TRIVANDRUM |             6 |           2 | SAHARA   |
+| MC890     | INDORE     | BOMBAY     |             3 |           0 | SAHARA   |
++-----------+------------+------------+---------------+-------------+----------+
+2 rows in set (0.02 sec)
+
+mysql> select flight_no, start_dest, end_dest, no_of_flights =0  as no_of_flights, no_of_stops, airlines from flight_details where flight_no like 'KF%';
++-----------+------------+-----------+---------------+-------------+-------------+
+| flight_no | start_dest | end_dest  | no_of_flights | no_of_stops | airlines    |
++-----------+------------+-----------+---------------+-------------+-------------+
+| KF234     | KANPUR     | BANGALORE |             0 |           0 | KINGFISHER  |
++-----------+------------+-----------+---------------+-------------+-------------+
+1 row in set (0.00 sec)
+
+
+g)
+
+
+mysql> select airlines, sum(no_of_flights) as sum_flights from flight_details group by airlines;
++-----------------+-------------+
+| airlines        | sum_flights |
++-----------------+-------------+
+| INDIAN AIRLINES |          21 |
+| JET AIRWAYS     |           6 |
+| KINGFISHER      |           4 |
+| SAHARA          |           5 |
++-----------------+-------------+
+4 rows in set (0.08 sec)
+
+
+h)
+
+mysql> select flight_no, start_dest as starting_destination, end_dest as ending_destination, no_of_flights, no_of_stops, airlines from flight_details where start_dest='DELHI' and no_of_stops=1;
++-----------+----------------------+--------------------+---------------+-------------+-------------+
+| flight_no | starting_destination | ending_destination | no_of_flights | no_of_stops | airlines    |
++-----------+----------------------+--------------------+---------------+-------------+-------------+
+| AM501     | DELHI                | BOMBAY             |             4 |           1 | JET AIRWAYS |
++-----------+----------------------+--------------------+---------------+-------------+-------------+
+1 row in set (0.00 sec)
+
+
+i)
+
+
+mysql> select start_dest from flight_details where no_of_stops = 0;
++------------+
+| start_dest |
++------------+
+| BOMBAY     |
+| KOLKATA    |
+| CHENNAI    |
+| KANPUR     |
+| INDORE     |
++------------+
+5 rows in set (0.00 sec)
+
+
+j)
+
+mysql> delete from flight_details where flight_no like 'KF%';
+Query OK, 1 rows affected (0.03 sec)
+
+mysql> select * from flight_details;
++-----------+------------+--------------+---------------+-------------+-----------------+
+| Flight_no | start_dest | end_dest     | no_of_flights | No_of_stops | airlines        |
++-----------+------------+--------------+---------------+-------------+-----------------+
+| AM501     | DELHI      | BOMBAY       |             4 |           1 | JET AIRWAYS     |
+| AM812     | TRIVANDRUM | DELHI        |             2 |           1 | JET AIRWAYS     |
+| IC301     | BOMBAY     | DELHI        |             8 |           0 | INDIAN AIRLINES |
+| IC567     | KOLKATA    | BHUVANESHWAR |             1 |           0 | INDIAN AIRLINES |
+| IC678     | DELHI      | KOLKATA      |             5 |           2 | INDIAN AIRLINES |
+| IC789     | BANGALORE  | DELHI        |             2 |           1 | INDIAN AIRLINES |
+| IC799     | CHENNAI    | DELHI        |             5 |           0 | INDIAN AIRLINES |
+| MC499     | BOMBAY     | TRIVANDRUM   |             4 |           2 | SAHARA          |
+| MC890     | INDORE     | BOMBAY       |             1 |           0 | SAHARA          |
++-----------+------------+--------------+---------------+-------------+-----------------+
+9 rows in set (0.00 sec)
+
+
+k)
+
+
+mysql> select * from flight_details where end_dest='BHUVANESHWAR';
++-----------+------------+--------------+---------------+-------------+-----------------+
+| Flight_no | start_dest | end_dest     | no_of_flights | No_of_stops | airlines        |
++-----------+------------+--------------+---------------+-------------+-----------------+
+| IC567     | KOLKATA    | BHUVANESHWAR |             1 |           0 | INDIAN AIRLINES |
++-----------+------------+--------------+---------------+-------------+-----------------+
+1 row in set (0.00 sec)
+
+
+
+
+OUTPUT QUERIES
+
+a)
+
+
+mysql> select * from flight_details order by airlines;
++-----------+------------+--------------+---------------+-------------+-----------------+
+| Flight_no | start_dest | end_dest     | no_of_flights | No_of_stops | airlines        |
++-----------+------------+--------------+---------------+-------------+-----------------+
+| IC301     | BOMBAY     | DELHI        |             8 |           0 | INDIAN AIRLINES |
+| IC567     | KOLKATA    | BHUVANESHWAR |             1 |           0 | INDIAN AIRLINES |
+| IC678     | DELHI      | KOLKATA      |             5 |           2 | INDIAN AIRLINES |
+| IC789     | BANGALORE  | DELHI        |             2 |           1 | INDIAN AIRLINES |
+| IC799     | CHENNAI    | DELHI        |             5 |           0 | INDIAN AIRLINES |
+| AM501     | DELHI      | BOMBAY       |             4 |           1 | JET AIRWAYS     |
+| AM812     | TRIVANDRUM | DELHI        |             2 |           1 | JET AIRWAYS     |
+| MC499     | BOMBAY     | TRIVANDRUM   |             4 |           2 | SAHARA          |
+| MC890     | INDORE     | BOMBAY       |             1 |           0 | SAHARA          |
++-----------+------------+--------------+---------------+-------------+-----------------+
+9 rows in set (0.00 sec)
+
+
+
+b)
+
+mysql> update flight_details set no_of_stops = 2 where flight_no='IC799';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select flight_no, no_of_stops from flight_details where flight_no='IC799';
++-----------+-------------+
+| flight_no | no_of_stops |
++-----------+-------------+
+| IC799     |           2 |
++-----------+-------------+
+1 row in set (0.00 sec)
+
+
+c)
+
+mysql> select avg(no_of_stops) from flight_details where airlines='INDIAN AIRLINES';
++------------------+
+| avg(no_of_stops) |
++------------------+
+|           1.0000 |
++------------------+
+1 row in set (0.02 sec)
+
+
+d)
+
+mysql> select count(distinct start_dest) from flight_details where no_of_flights = 2;
++----------------------------+
+| count(distinct start_dest) |
++----------------------------+
+|                          2 |
++----------------------------+
+1 row in set (0.00 sec)
+
+
