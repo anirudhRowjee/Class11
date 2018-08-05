@@ -1,2 +1,0 @@
-select tourist.name, tourist.age, tourist.package_amt, tourist.travel_date, master_agency.a_name, places.name from tourist, master_agency, places where tourist.agency_code = master_agency.a_num and places.t_code = tourist.tcode;
-
